@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- ═══════════════════════════════════════════════
+       LIGNE À MODIFIER : titre de l'onglet navigateur
+       ═══════════════════════════════════════════════ -->
+  <title>Prénom Nom — E-Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,sans-serif;background:#F5F4F0;color:#1A1915}
+    .shell{display:grid;grid-template-columns:1fr 260px;border:0.5px solid #E0DED8;border-radius:12px;overflow:hidden;height:90vh;max-height:640px;margin:2rem auto;max-width:960px;box-shadow:0 2px 16px #0001}
+    .tree-area{background:#F5F4F0;padding:1rem;display:flex;flex-direction:column;overflow:hidden}
+    .tree-top{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:0.5px solid #E0DED8;flex-shrink:0}
+    /* ═══════════════════════════════════════════
+       LIGNE À MODIFIER : couleur de l'icône header
+       ═══════════════════════════════════════════ */
+    .tree-top i{font-size:15px;color:#534AB7}
+    .tree-name{font-size:13px;font-weight:500;color:#1A1915}
+    .canvaswrap{flex:1;overflow:hidden}
+    canvas{display:block}
+    .panel{border-left:0.5px solid #E0DED8;background:#fff;display:flex;flex-direction:column;overflow-y:auto}
+    .panel-head{padding:0.875rem 1rem;border-bottom:0.5px solid #E0DED8;background:#F5F4F0;flex-shrink:0}
+    /* ═══════════════════════════════════════
+       LIGNE À MODIFIER : couleur icône panneau
+       ═══════════════════════════════════════ */
+    .panel-icon{font-size:20px;color:#534AB7;margin-bottom:4px}
+    .panel-title{font-size:13px;font-weight:500;color:#1A1915}
+    .panel-body{padding:0.875rem 1rem;display:flex;flex-direction:column;gap:6px}
+    .panel-desc{font-size:12px;color:#5F5E5A;line-height:1.6;margin-bottom:4px}
+    .panel-empty{font-size:12px;color:#B4B2A9;text-align:center;margin:auto;padding:1rem}
+    .pitem{font-size:11px;color:#5F5E5A;padding:4px 0;border-bottom:0.5px solid #E0DED8}
+    .plbl{font-size:10px;color:#888780;letter-spacing:.05em;margin-bottom:2px;margin-top:8px}
+    .pmedia{width:100%;border-radius:8px;margin-top:4px;display:block}
+    .pvideo{width:100%;border-radius:8px;margin-top:4px;display:block;aspect-ratio:16/9}
+    .pcap{font-size:10px;color:#888780;margin-top:6px;margin-bottom:2px}
+    .pskill{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:4px 0;border-bottom:0.5px solid #E0DED8;gap:8px}
+    .pskill-bar{width:60px;height:4px;background:#F0EEE8;border-radius:2px;overflow:hidden;flex-shrink:0}
+    /* ═══════════════════════════════════════════
+       LIGNE À MODIFIER : couleur barres de niveau
+       ═══════════════════════════════════════════ */
+    .pskill-fill{height:100%;background:#534AB7;border-radius:2px}
+  </style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="tree-area">
+    <div class="tree-top">
+      <i class="ti ti-git-branch"></i>
+      <!-- ════════════════════════════════
+           LIGNE À MODIFIER : ton nom + titre
+           ════════════════════════════════ -->
+      <span class="tree-name">Prénom Nom · Technicien Automation</span>
+    </div>
+    <div class="canvaswrap" id="wrap">
+      <canvas id="tree"></canvas>
+    </div>
+  </div>
+  <div class="panel" id="panel">
+    <div class="panel-empty">Cliquer sur un nœud pour voir le détail</div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   NŒUD CENTRAL — modifier : label, icon, desc, items
+   ════════════════════════════════════════════════════════════ */
+var center={
+  id:'profil', label:'Profil & CV', icon:'ti-id-badge',
+  desc:'CV en ligne, présentation personnelle, parcours de formation.',
+  items:[
+    'Nom, prénom, contact',
+    'Formation en cours',
+    'Objectif professionnel'
+  ]
+};
+
+/* ════════════════════════════════════════════════════════════
+   NŒUDS PRINCIPAUX — modifier : label, icon, desc, items
+   Pour changer une icône : aller sur tabler.io/icons,
+   chercher l'icône, copier son nom (ex: ti-drone)
+   ════════════════════════════════════════════════════════════ */
+var mains=[
+  {
+    id:'formation', label:'Formation\ncontinue', icon:'ti-school',
+    desc:'Formations continues suivies au cours du parcours.',
+    items:[
+      'Formation sécurité incendie',
+      'Initiation aux automates'
+    ]
+  },
+  {
+    id:'implication', label:'Implication\nécole', icon:'ti-users',
+    desc:'Participation active et bénévole à la vie de l\'institution.',
+    items:[]
+  },
+  {
+    id:'monde', label:'Monde\nprofessionnel', icon:'ti-briefcase',
+    desc:'Exploration et recherches sur le secteur professionnel.',
+    items:[
+      'Recherche sur le secteur automation',
+      'Tendances du marché'
+    ]
+  },
+  {
+    id:'numerique', label:'Compétences\nnumériques', icon:'ti-cpu',
+    desc:'Compétences numériques évaluées via la certification PIX.',
+    items:[],
+    /* ══════════════════════════════════════════════
+       MODIFIER : nom de la compétence + niveau 0-100
+       ══════════════════════════════════════════════ */
+    skills:[
+      {name:'Information & données', pct:75},
+      {name:'Communication',         pct:60},
+      {name:'Création de contenu',   pct:50},
+      {name:'Protection & sécurité', pct:65},
+      {name:'Env. numérique',        pct:80}
+    ]
+  },
+  {
+    id:'job', label:'Job\nétudiant', icon:'ti-coin',
+    desc:'Expériences professionnelles en parallèle des études.',
+    items:[
+      'Poste · Entreprise · Période',
+      'Missions réalisées'
+    ]
+  }
+];
+
+/* ════════════════════════════════════════════════════════════
+   SOUS-NŒUDS — modifier : label, icon, desc, items, parent
+   parent = id du nœud principal auquel il est rattaché
+   ════════════════════════════════════════════════════════════ */
+var subs=[
+  {
+    id:'secu', label:'Prévention\n& Sécurité', icon:'ti-shield-check', parent:'formation',
+    desc:'Parcours de formation à la prévention et à la sécurité.',
+    items:[
+      'Premiers secours',
+      'Risques électriques',
+      'Attestation obtenue'
+    ]
+  },
+  {
+    id:'jpo', label:'Journée\nPortes Ouvertes', icon:'ti-door-enter', parent:'implication',
+    desc:'Participation bénévole à la journée portes ouvertes de l\'école.',
+    items:[
+      'Rôle tenu',
+      'Date',
+      'Retour d\'expérience'
+    ]
+  },
+  {
+    id:'siep', label:'SIEP', icon:'ti-calendar-event', parent:'implication',
+    desc:'Participation au salon SIEP d\'orientation.',
+    items:['Date','Rôle','Retour']
+  },
+  {
+    id:'jef', label:'Journée\nEntreprendre\nton Futur', icon:'ti-rocket', parent:'implication',
+    desc:'Participation à la Journée Entreprendre ton Futur.',
+    items:['Date','Activités','Retour']
+  },
+  {
+    id:'visite', label:'Visites\nd\'entreprise', icon:'ti-building-factory', parent:'monde',
+    desc:'Visites d\'entreprises réalisées dans le cadre de la formation.',
+    items:[
+      'Entreprise X — secteur automation',
+      'Entreprise Y — secteur industriel'
+    ],
+    /* ══════════════════════════════════════════════════════
+       MÉDIAS — modifier src par le chemin de ton fichier
+       Exemples :
+         image locale  → src:'images/photo_visite.jpg'
+         vidéo locale  → src:'videos/visite.mp4'
+         image en ligne → src:'https://example.com/photo.jpg'
+       ══════════════════════════════════════════════════════ */
+    medias:[
+      {type:'image', src:'https://placehold.co/220x120?text=Photo+visite', caption:'Visite entreprise X'},
+      {type:'video', src:'https://www.w3schools.com/html/mov_bbb.mp4',     caption:'Vidéo salon technique'}
+    ]
+  },
+  {
+    id:'salon', label:'Salon\ntechnique', icon:'ti-ticket', parent:'monde',
+    desc:'Visite d\'au moins un salon technique en lien avec le domaine.',
+    items:[
+      'Salon A — date — lieu',
+      'Thématiques abordées'
+    ]
+  },
+  {
+    id:'swot', label:'SWOT', icon:'ti-chart-radar', parent:'monde',
+    desc:'Analyse réflexive : forces, faiblesses, opportunités, menaces.',
+    items:['Forces','Faiblesses','Opportunités','Menaces']
+  }
+];
+
+/* ════════════ ne pas modifier en dessous ════════════ */
+var allNodes=[center].concat(mains).concat(subs);
+var glyphs={
+  'ti-id-badge':'\uEAD6','ti-school':'\uEB48','ti-building-factory':'\uF108',
+  'ti-shield-check':'\uEB56','ti-users':'\uECCE','ti-briefcase':'\uEA3E',
+  'ti-chart-radar':'\uEE01','ti-cpu':'\uEA73','ti-coin':'\uEA7C',
+  'ti-door-enter':'\uEBEB','ti-calendar-event':'\uEA53','ti-rocket':'\uEB32',
+  'ti-ticket':'\uEBB2'
+};
+
+var selected=null;
+var wrap=document.getElementById('wrap');
+var cvs=document.getElementById('tree');
+var ctx=cvs.getContext('2d');
+var W=0,H=0;
+
+function isSub(n){return !!subs.find(function(s){return s.id===n.id;});}
+function isMain(n){return !!mains.find(function(m){return m.id===n.id;});}
+function nodeR(n){
+  if(n.id==='profil') return 32;
+  if(isMain(n)) return 26;
+  return 17;
+}
+
+function applyLayout(){
+  W=wrap.clientWidth; H=wrap.clientHeight;
+  cvs.width=W; cvs.height=H;
+  var cx=W/2,cy=H/2,rM=Math.min(W,H)*0.32;
+  center.px=cx; center.py=cy;
+  mains.forEach(function(m,i){
+    var a=(2*Math.PI/mains.length)*i - Math.PI/2;
+    m.px=cx+rM*Math.cos(a); m.py=cy+rM*Math.sin(a); m.angle=a;
+  });
+  var rS=Math.min(W,H)*0.175;
+  subs.forEach(function(s){
+    var par=mains.find(function(m){return m.id===s.parent;});
+    if(!par) return;
+    var siblings=subs.filter(function(x){return x.parent===s.parent;});
+    var idx=siblings.indexOf(s), total=siblings.length;
+    var spread=total===1?0:total===2?0.45:0.7;
+    var offset=total===1?0:(idx/(total-1)-0.5)*2*spread;
+    var a=par.angle+offset;
+    s.px=par.px+rS*Math.cos(a); s.py=par.py+rS*Math.sin(a);
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  mains.forEach(function(m){
+    ctx.beginPath(); ctx.moveTo(center.px,center.py); ctx.lineTo(m.px,m.py);
+    ctx.strokeStyle='#D3D1C7'; ctx.lineWidth=1.5; ctx.stroke();
+  });
+  subs.forEach(function(s){
+    var par=mains.find(function(m){return m.id===s.parent;});
+    if(!par) return;
+    ctx.beginPath(); ctx.moveTo(par.px,par.py); ctx.lineTo(s.px,s.py);
+    ctx.strokeStyle='#E0DED8'; ctx.lineWidth=1; ctx.stroke();
+  });
+  allNodes.forEach(function(n){
+    if(n.px===undefined) return;
+    var r=nodeR(n), isSel=selected&&selected.id===n.id;
+    ctx.beginPath(); ctx.arc(n.px,n.py,r,0,Math.PI*2);
+    ctx.fillStyle=isSel?'#fff':'#FAFAF8'; ctx.fill();
+    ctx.beginPath(); ctx.arc(n.px,n.py,r,0,Math.PI*2);
+    ctx.strokeStyle=isSel?'#534AB7':'#B4B2A9';
+    ctx.lineWidth=isSel?2:1.5; ctx.stroke();
+    var fs=n.id==='profil'?16:isMain(n)?14:12;
+    ctx.font=fs+'px "tabler-icons"';
+    ctx.fillStyle='#534AB7';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(glyphs[n.icon]||'?',n.px,n.py);
+    var fs2=n.id==='profil'?10:isMain(n)?10:9;
+    ctx.font=fs2+'px system-ui,sans-serif';
+    ctx.fillStyle='#888780'; ctx.textBaseline='top';
+    n.label.split('\n').forEach(function(l,i){
+      ctx.fillText(l,n.px,n.py+r+4+i*(fs2+2));
+    });
+  });
+}
+
+function hitTest(mx,my){
+  var best=null,bestD=Infinity;
+  allNodes.forEach(function(n){
+    if(n.px===undefined) return;
+    var r=nodeR(n)+8,dx=mx-n.px,dy=my-n.py,d=dx*dx+dy*dy;
+    if(d<=r*r&&d<bestD){best=n;bestD=d;}
+  });
+  return best;
+}
+
+cvs.addEventListener('click',function(e){
+  var rect=cvs.getBoundingClientRect();
+  var hit=hitTest(e.clientX-rect.left,e.clientY-rect.top);
+  if(!hit) return;
+  selected=hit; renderPanel(hit); draw();
+});
+cvs.addEventListener('mousemove',function(e){
+  var rect=cvs.getBoundingClientRect();
+  cvs.style.cursor=hitTest(e.clientX-rect.left,e.clientY-rect.top)?'pointer':'default';
+});
+
+function renderPanel(n){
+  var items=(n.items||[]).map(function(it){
+    return '<div class="pitem">'+it+'</div>';
+  }).join('');
+  var skillsHtml='';
+  if(n.skills&&n.skills.length){
+    skillsHtml='<div class="plbl">NIVEAUX PIX</div>';
+    n.skills.forEach(function(s){
+      skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
+        +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+s.pct+'%"></div></div>'
+        +'</div>';
+    });
+  }
+  var mediaHtml='';
+  if(n.medias&&n.medias.length){
+    mediaHtml='<div class="plbl">MÉDIAS</div>';
+    n.medias.forEach(function(m){
+      mediaHtml+='<div class="pcap">'+m.caption+'</div>';
+      if(m.type==='image') mediaHtml+='<img src="'+m.src+'" alt="'+m.caption+'" class="pmedia"/>';
+      else mediaHtml+='<video src="'+m.src+'" controls class="pvideo"></video>';
+    });
+  }
+  document.getElementById('panel').innerHTML=
+    '<div class="panel-head">'
+    +'<div class="panel-icon"><i class="ti '+n.icon+'"></i></div>'
+    +'<div class="panel-title">'+n.label.replace(/\n/g,' ')+'</div>'
+    +'</div>'
+    +'<div class="panel-body">'
+    +'<div class="panel-desc">'+n.desc+'</div>'
+    +(items?'<div class="plbl">ÉLÉMENTS</div>'+items:'')
+    +skillsHtml+mediaHtml
+    +'</div>';
+}
+
+applyLayout(); draw();
+window.addEventListener('resize',function(){applyLayout(); draw();});
+</script>
+</body>
+</html>
