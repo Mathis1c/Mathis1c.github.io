@@ -3,16 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <!-- ═══════════════════════════════════════════════
-       LIGNE À MODIFIER : titre de l'onglet navigateur
-       ═══════════════════════════════════════════════ -->
-  <title>Prénom Nom — E-Portfolio</title>
+  <title>Mathis Cordier— E-Portfolio</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,sans-serif;background:#F5F4F0;color:#1A1915}
+    body{font-family:system-ui,sans-serif;background:#0A0F1E;color:#1A1915}
     .shell{display:grid;grid-template-columns:1fr 260px;border:0.5px solid #E0DED8;border-radius:12px;overflow:hidden;height:90vh;max-height:640px;margin:2rem auto;max-width:960px;box-shadow:0 2px 16px #0001}
-    .tree-area{background:#F5F4F0;padding:1rem;display:flex;flex-direction:column;overflow:hidden}
+    .tree-area{background:#0A0F1E;padding:1rem;display:flex;flex-direction:column;overflow:hidden}
     .tree-top{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:0.5px solid #E0DED8;flex-shrink:0}
     /* ═══════════════════════════════════════════
        LIGNE À MODIFIER : couleur de l'icône header
@@ -22,7 +19,7 @@
     .canvaswrap{flex:1;overflow:hidden}
     canvas{display:block}
     .panel{border-left:0.5px solid #E0DED8;background:#fff;display:flex;flex-direction:column;overflow-y:auto}
-    .panel-head{padding:0.875rem 1rem;border-bottom:0.5px solid #E0DED8;background:#F5F4F0;flex-shrink:0}
+    .panel-head{padding:0.875rem 1rem;border-bottom:0.5px solid #E0DED8;background:#0A0F1E;flex-shrink:0}
     /* ═══════════════════════════════════════
        LIGNE À MODIFIER : couleur icône panneau
        ═══════════════════════════════════════ */
@@ -50,10 +47,7 @@
   <div class="tree-area">
     <div class="tree-top">
       <i class="ti ti-git-branch"></i>
-      <!-- ════════════════════════════════
-           LIGNE À MODIFIER : ton nom + titre
-           ════════════════════════════════ -->
-      <span class="tree-name">Prénom Nom · Technicien Automation</span>
+      <span class="tree-name">Mathis Cordier · Bachelier en automatisation</span>
     </div>
     <div class="canvaswrap" id="wrap">
       <canvas id="tree"></canvas>
@@ -72,9 +66,13 @@ var center={
   id:'profil', label:'Profil & CV', icon:'ti-id-badge',
   desc:'CV en ligne, présentation personnelle, parcours de formation.',
   items:[
-    'Nom, prénom, contact',
-    'Formation en cours',
-    'Objectif professionnel'
+    'Cordier, Mathis, 
+    '3ème année d\'étude ',
+    'je suis un étudiant qui adore apprendre',
+    'et qui reste calme en tout circonstance'
+  ],
+    medias:[
+    {type:'pdf', src:'cv.pdf', caption:'mon CV'}
   ]
 };
 
@@ -87,27 +85,28 @@ var mains=[
   {
     id:'formation', label:'Formation\ncontinue', icon:'ti-school',
     desc:'Formations continues suivies au cours du parcours.',
-    items:[
-      'Formation sécurité incendie',
-      'Initiation aux automates'
-    ]
+    items:['Prévention'],
+    medias:[{type:'pdf', src:'prévention.pdf', caption:'mail du professeur de prévention'}],
+    items:['Sécurité serious game'],
+    medias:[{type:'pdf', src:'prévention.pdf', caption:'Sécurité serious game'}],
+    items:['Le cours de prévention ainsi que serious game m\'ont permis d\'apprendre/approfondir' 
+           'mes connaissance dans les divers potentiels dangers et leurs impacts '],
+    ],
+  ]
   },
   {
     id:'implication', label:'Implication\nécole', icon:'ti-users',
-    desc:'Participation active et bénévole à la vie de l\'institution.',
+    desc:'Voici mes différentes implication dans la vie de l\'école ainsi que pour les entreprise.',
     items:[]
   },
   {
     id:'monde', label:'Monde\nprofessionnel', icon:'ti-briefcase',
-    desc:'Exploration et recherches sur le secteur professionnel.',
-    items:[
-      'Recherche sur le secteur automation',
-      'Tendances du marché'
-    ]
+    desc:'Voici mon annalyse personnel swot ainsi que ce que j\ai appris grâce au salon technique que j\'ai pu visiter.',
+    items:[]
   },
   {
     id:'numerique', label:'Compétences\nnumériques', icon:'ti-cpu',
-    desc:'Compétences numériques évaluées via la certification PIX.',
+    desc:'Voici mes compétences numériques PIX qui seront bientot certifier.',
     items:[],
     /* ══════════════════════════════════════════════
        MODIFIER : nom de la compétence + niveau 0-100
@@ -122,10 +121,15 @@ var mains=[
   },
   {
     id:'job', label:'Job\nétudiant', icon:'ti-coin',
-    desc:'Expériences professionnelles en parallèle des études.',
+    desc:'Expériences professionnelles en parallèle de mes études.',
     items:[
-      'Poste · Entreprise · Période',
-      'Missions réalisées'
+      'Employé en boulangerie chez Dehlaize pendant 1 semaine',
+      'Mission : remplir rayon, récupérer les divers livraisons et divers autres petit mission.', 
+      '6 conctrat à la CAPAC(Caisse auxiliaire de paiement des allocations de chomage) sous 2 ans '
+      'Mission : numériser énormément des documents d\'divers ainsi que de les classer et les nommer.';
+      '1 contrat chez Saint-Luc de 2 semaines.';
+      'Mission : récupérer des contrats spécifiques dans une montagne de document qui n\ont pas forcément de lien entre eux';
+      'Tout ces jobs m\'ont permis d\'améliorer ma patience, ma rigueur et de me donner un avant gout du mmonde du travail
     ]
   }
 ];
@@ -136,38 +140,18 @@ var mains=[
    ════════════════════════════════════════════════════════════ */
 var subs=[
   {
-    id:'secu', label:'Prévention\n& Sécurité', icon:'ti-shield-check', parent:'formation',
-    desc:'Parcours de formation à la prévention et à la sécurité.',
-    items:[
-      'Premiers secours',
-      'Risques électriques',
-      'Attestation obtenue'
-    ]
-  },
-  {
     id:'jpo', label:'Journée\nPortes Ouvertes', icon:'ti-door-enter', parent:'implication',
     desc:'Participation bénévole à la journée portes ouvertes de l\'école.',
     items:[
-      'Rôle tenu',
-      'Date',
-      'Retour d\'expérience'
-    ]
-  },
-  {
-    id:'siep', label:'SIEP', icon:'ti-calendar-event', parent:'implication',
-    desc:'Participation au salon SIEP d\'orientation.',
-    items:['Date','Rôle','Retour']
-  },
-  {
-    id:'jef', label:'Journée\nEntreprendre\nton Futur', icon:'ti-rocket', parent:'implication',
-    desc:'Participation à la Journée Entreprendre ton Futur.',
-    items:['Date','Activités','Retour']
+      'Le 12 septembre j\'ai pu aider l\école à se présenter pour de futur élève en partageant mon expérience de l\école ainsi que répondre à leur question'
+    ],
+    medias:[{type:'image', src:'porte_ouvert.png', caption:'porte_ouvert'}] 
   },
   {
     id:'visite', label:'Visites\nd\'entreprise', icon:'ti-building-factory', parent:'monde',
     desc:'Visites d\'entreprises réalisées dans le cadre de la formation.',
     items:[
-      'Entreprise X — secteur automation',
+      'J\'ai pu n',
       'Entreprise Y — secteur industriel'
     ],
     /* ══════════════════════════════════════════════════════
@@ -306,14 +290,19 @@ function renderPanel(n){
   if(n.skills&&n.skills.length){
     skillsHtml='<div class="plbl">NIVEAUX PIX</div>';
     n.skills.forEach(function(s){
-      skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
-        +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+s.pct+'%"></div></div>'
-        +'</div>';
+    skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
+      +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+s.pct+'%"></div></div>'
+      +'</div>';
     });
+  else if(m.type==='pdf'){
+    mediaHtml+='<a href="'+m.src+'" target="_blank" '
+      +'style="display:inline-block;margin-top:6px;font-size:11px;'
+      +'padding:5px 10px;border-radius:6px;background:#534AB7;'
+      +'color:#fff;text-decoration:none">Ouvrir '+m.caption+'</a>';
+}
   }
   var mediaHtml='';
   if(n.medias&&n.medias.length){
-    mediaHtml='<div class="plbl">MÉDIAS</div>';
     n.medias.forEach(function(m){
       mediaHtml+='<div class="pcap">'+m.caption+'</div>';
       if(m.type==='image') mediaHtml+='<img src="'+m.src+'" alt="'+m.caption+'" class="pmedia"/>';
@@ -327,7 +316,7 @@ function renderPanel(n){
     +'</div>'
     +'<div class="panel-body">'
     +'<div class="panel-desc">'+n.desc+'</div>'
-    +(items?'<div class="plbl">ÉLÉMENTS</div>'+items:'')
+    +items
     +skillsHtml+mediaHtml
     +'</div>';
 }
