@@ -66,14 +66,12 @@ var center={
   id:'profil', label:'Profil & CV', icon:'ti-id-badge',
   desc:'CV en ligne, présentation personnelle, parcours de formation.',
   items:[
-    'Cordier, Mathis, 
+    'Cordier, Mathis', 
     '3ème année d\'étude ',
     'je suis un étudiant qui adore apprendre',
     'et qui reste calme en tout circonstance'
   ],
-    medias:[
-    {type:'pdf', src:'cv.pdf', caption:'mon CV'}
-  ]
+    medias:[{type:'pdf', src:'cv.pdf', caption:'mon CV'}]
 };
 
 /* ════════════════════════════════════════════════════════════
@@ -87,7 +85,7 @@ var mains=[
     desc:'Formations continues suivies au cours du parcours.',
     items:['Prévention et Sécurité serious game'],
     'Le cours de prévention ainsi que serious game m\'ont permis d\'apprendre/approfondir',
-    'mes connaissance dans les divers potentiels dangers et leurs impacts'],
+    'mes connaissance dans les divers potentiels dangers et leurs impacts'
     ],
   ]
   },
@@ -129,11 +127,11 @@ var mains=[
     items:[
       'Employé en boulangerie chez Dehlaize pendant 1 semaine',
       'Mission : remplir rayon, récupérer les divers livraisons et divers autres petit mission.', 
-      '6 conctrat à la CAPAC(Caisse auxiliaire de paiement des allocations de chomage) sous 2 ans '
-      'Mission : numériser énormément des documents d\'divers ainsi que de les classer et les nommer.';
-      '1 contrat chez Saint-Luc de 2 semaines.';
-      'Mission : récupérer des contrats spécifiques dans une montagne de document qui n\ont pas forcément de lien entre eux';
-      'Tout ces jobs m\'ont permis d\'améliorer ma patience, ma rigueur et de me donner un avant gout du mmonde du travail
+      '6 conctrat à la CAPAC(Caisse auxiliaire de paiement des allocations de chomage) sous 2 ans ',
+      'Mission : numériser énormément des documents d\'divers ainsi que de les classer et les nommer.',
+      '1 contrat chez Saint-Luc de 2 semaines.',
+      'Mission : récupérer des contrats spécifiques dans une montagne de document qui n\ont pas forcément de lien entre eux',
+      'Tout ces jobs m\'ont permis d\'améliorer ma patience, ma rigueur et de me donner un avant gout du mmonde du travail'
     ]
   }
 ];
@@ -171,8 +169,8 @@ var subs=[
     items:[
       'J\'ai pu visiter le salon Bedex à Bruxelle en 2026 qui m\'a permis de découvrir l\'environnement de la défense. '
       ],
-     medias:[ {type:'image', src:'images/Bedex.png ', caption:'Visite salon Bedex'},
-             {type:'image', src:'images/F16.png ', caption:'moteur de F16'}
+     medias:[ {type:'image', src:'images/Bedex.png', caption:'Visite salon Bedex'},
+             {type:'image', src:'images/F16.png', caption:'moteur de F16'}
             ]
   },
   {
@@ -282,7 +280,6 @@ cvs.addEventListener('mousemove',function(e){
   var rect=cvs.getBoundingClientRect();
   cvs.style.cursor=hitTest(e.clientX-rect.left,e.clientY-rect.top)?'pointer':'default';
 });
-
 function renderPanel(n){
   var items=(n.items||[]).map(function(it){
     return '<div class="pitem">'+it+'</div>';
@@ -291,23 +288,23 @@ function renderPanel(n){
   if(n.skills&&n.skills.length){
     skillsHtml='<div class="plbl">NIVEAUX PIX</div>';
     n.skills.forEach(function(s){
-    skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
-      +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+s.pct+'%"></div></div>'
-      +'</div>';
+      skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
+        +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+(s.niv/s.max*100)+'%"></div></div>'
+        +'</div>';
     });
-  else if(m.type==='pdf'){
-    mediaHtml+='<a href="'+m.src+'" target="_blank" '
-      +'style="display:inline-block;margin-top:6px;font-size:11px;'
-      +'padding:5px 10px;border-radius:6px;background:#534AB7;'
-      +'color:#fff;text-decoration:none">Ouvrir '+m.caption+'</a>';
-}
   }
   var mediaHtml='';
   if(n.medias&&n.medias.length){
     n.medias.forEach(function(m){
       mediaHtml+='<div class="pcap">'+m.caption+'</div>';
       if(m.type==='image') mediaHtml+='<img src="'+m.src+'" alt="'+m.caption+'" class="pmedia"/>';
-      else mediaHtml+='<video src="'+m.src+'" controls class="pvideo"></video>';
+      else if(m.type==='video') mediaHtml+='<video src="'+m.src+'" controls class="pvideo"></video>';
+      else if(m.type==='pdf'){
+        mediaHtml+='<a href="'+m.src+'" target="_blank" '
+          +'style="display:inline-block;margin-top:6px;font-size:11px;'
+          +'padding:5px 10px;border-radius:6px;background:#534AB7;'
+          +'color:#fff;text-decoration:none">Ouvrir '+m.caption+'</a>';
+      }
     });
   }
   document.getElementById('panel').innerHTML=
