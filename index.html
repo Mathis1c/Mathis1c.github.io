@@ -7,15 +7,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:system-ui,sans-serif;background:#0A0F1E;color:#1A1915}
+    body{font-family:system-ui,sans-serif;background:#0A0F1E;color:#EEF4FF}
     .shell{display:grid;grid-template-columns:1fr 260px;border:0.5px solid #E0DED8;border-radius:12px;overflow:hidden;height:90vh;max-height:640px;margin:2rem auto;max-width:960px;box-shadow:0 2px 16px #0001}
     .tree-area{background:#0A0F1E;padding:1rem;display:flex;flex-direction:column;overflow:hidden}
     .tree-top{display:flex;align-items:center;gap:8px;margin-bottom:0.75rem;padding-bottom:0.75rem;border-bottom:0.5px solid #E0DED8;flex-shrink:0}
     /* ═══════════════════════════════════════════
        LIGNE À MODIFIER : couleur de l'icône header
        ═══════════════════════════════════════════ */
-    .tree-top i{font-size:15px;color:#534AB7}
-    .tree-name{font-size:13px;font-weight:500;color:#1A1915}
+    .tree-top i{font-size:15px;color:#EEF4FF}
+    .tree-name{font-size:13px;font-weight:500;color:#EEF4FF}
     .canvaswrap{flex:1;overflow:hidden}
     canvas{display:block}
     .panel{border-left:0.5px solid #E0DED8;background:#fff;display:flex;flex-direction:column;overflow-y:auto}
@@ -23,13 +23,13 @@
     /* ═══════════════════════════════════════
        LIGNE À MODIFIER : couleur icône panneau 
        ═══════════════════════════════════════ */
-    .panel-icon{font-size:20px;color:#534AB7;margin-bottom:4px}
-    .panel-title{font-size:13px;font-weight:500;color:#1A1915}
+    .panel-icon{font-size:20px;color:#EEF4FF;margin-bottom:4px}
+    .panel-title{font-size:13px;font-weight:500;color:#EEF4FF}
     .panel-body{padding:0.875rem 1rem;display:flex;flex-direction:column;gap:6px}
-    .panel-desc{font-size:12px;color:#5F5E5A;line-height:1.6;margin-bottom:4px}
-    .panel-empty{font-size:12px;color:#B4B2A9;text-align:center;margin:auto;padding:1rem}
-    .pitem{font-size:11px;color:#5F5E5A;padding:4px 0;border-bottom:0.5px solid #E0DED8}
-    .plbl{font-size:10px;color:#888780;letter-spacing:.05em;margin-bottom:2px;margin-top:8px}
+    .panel-desc{font-size:12px;color:#EEF4FF;line-height:1.6;margin-bottom:4px}
+    .panel-empty{font-size:12px;color:#EEF4FF;text-align:center;margin:auto;padding:1rem}
+    .pitem{font-size:11px;color:#EEF4FF;padding:4px 0;border-bottom:0.5px solid #E0DED8}
+    .plbl{font-size:10px;color:#EEF4FF;letter-spacing:.05em;margin-bottom:2px;margin-top:8px}
     .pmedia{width:100%;border-radius:8px;margin-top:4px;display:block}
     .pvideo{width:100%;border-radius:8px;margin-top:4px;display:block;aspect-ratio:16/9}
     .pcap{font-size:10px;color:#888780;margin-top:6px;margin-bottom:2px}
@@ -85,12 +85,9 @@ var mains=[
   {
     id:'formation', label:'Formation\ncontinue', icon:'ti-school',
     desc:'Formations continues suivies au cours du parcours.',
-    items:['Prévention'],
-    medias:[{type:'pdf', src:'prévention.pdf', caption:'mail du professeur de prévention'}],
-    items:['Sécurité serious game'],
-    medias:[{type:'pdf', src:'prévention.pdf', caption:'Sécurité serious game'}],
-    items:['Le cours de prévention ainsi que serious game m\'ont permis d\'apprendre/approfondir' 
-           'mes connaissance dans les divers potentiels dangers et leurs impacts '],
+    items:['Prévention et Sécurité serious game'],
+    'Le cours de prévention ainsi que serious game m\'ont permis d\'apprendre/approfondir',
+    'mes connaissance dans les divers potentiels dangers et leurs impacts'],
     ],
   ]
   },
@@ -145,15 +142,14 @@ var subs=[
     items:[
       'Le 12 septembre j\'ai pu aider l\école à se présenter pour de futur élève en partageant mon expérience de l\école ainsi que répondre à leur question'
     ],
-    medias:[{type:'image', src:'porte_ouvert.png', caption:'porte_ouvert'}] 
+    medias:[{type:'image', src:'images/JPO.png', caption:'porte_ouvert'}] 
   },
   {
     id:'visite', label:'Visites\nd\'entreprise', icon:'ti-building-factory', parent:'monde',
     desc:'Visites d\'entreprises réalisées dans le cadre de la formation.',
     items:[
-      'J\'ai pu n',
-      'Entreprise Y — secteur industriel'
-    ],
+      'J\'ai pu visiter l\'entreprise siemens dans laquelle j\'ai pu apprendre à implémenter variateur de vitesse avec le matériel et logiciel Siemens,
+       ],
     /* ══════════════════════════════════════════════════════
        MÉDIAS — modifier src par le chemin de ton fichier
        Exemples :
@@ -161,18 +157,16 @@ var subs=[
          vidéo locale  → src:'videos/visite.mp4'
          image en ligne → src:'https://example.com/photo.jpg'
        ══════════════════════════════════════════════════════ */
-    medias:[
-      {type:'image', src:'https://placehold.co/220x120?text=Photo+visite', caption:'Visite entreprise X'},
-      {type:'video', src:'https://www.w3schools.com/html/mov_bbb.mp4',     caption:'Vidéo salon technique'}
-    ]
   },
   {
     id:'salon', label:'Salon\ntechnique', icon:'ti-ticket', parent:'monde',
     desc:'Visite d\'au moins un salon technique en lien avec le domaine.',
     items:[
-      'Salon A — date — lieu',
-      'Thématiques abordées'
-    ]
+      'J\'ai pu visiter le salon Bedex à Bruxelle en 2026 qui m\'a permis de découvrir l\'environnement de la défense. '
+      ],
+     medias:[ {type:'image', src:'images/Bedex.png ', caption:'Visite salon Bedex'},
+             {type:'image', src:'images/F16.png ', caption:'moteur de F16'}
+            ]
   },
   {
     id:'swot', label:'SWOT', icon:'ti-chart-radar', parent:'monde',
