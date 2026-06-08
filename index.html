@@ -32,7 +32,7 @@
     .plbl{font-size:10px;color:#EEF4FF;letter-spacing:.05em;margin-bottom:2px;margin-top:8px}
     .pmedia{width:100%;border-radius:8px;margin-top:4px;display:block}
     .pvideo{width:100%;border-radius:8px;margin-top:4px;display:block;aspect-ratio:16/9}
-    .pcap{font-size:10px;color:#888780;margin-top:6px;margin-bottom:2px}
+    .pcap{font-size:10px;color:#FFFFFF;margin-top:6px;margin-bottom:2px}
     .pskill{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:4px 0;border-bottom:0.5px solid #E0DED8;gap:8px}
     .pskill-bar{width:60px;height:4px;background:#2563EB;border-radius:2px;overflow:hidden;flex-shrink:0}
     /* ═══════════════════════════════════════════
@@ -252,7 +252,7 @@ function draw(){
     ctx.fillText(glyphs[n.icon]||'?',n.px,n.py);
     var fs2=n.id==='profil'?10:isMain(n)?10:9;
     ctx.font=fs2+'px system-ui,sans-serif';
-    ctx.fillStyle='#888780'; ctx.textBaseline='top';
+    ctx.fillStyle='#FFFFFF'; ctx.textBaseline='top';
     n.label.split('\n').forEach(function(l,i){
       ctx.fillText(l,n.px,n.py+r+4+i*(fs2+2));
     });
