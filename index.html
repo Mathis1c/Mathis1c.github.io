@@ -293,8 +293,9 @@ function renderPanel(n){
     skillsHtml='<div class="plbl">NIVEAUX PIX</div>';
     n.skills.forEach(function(s){
       skillsHtml+='<div class="pskill"><span>'+s.name+'</span>'
-        +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+(s.niv/s.max*100)+'%"></div></div>'
-        +'</div>';
+       +'<div class="pskill-bar"><div class="pskill-fill" style="width:'+(s.niv/s.max*100)+'%"></div></div>'
+       +'<span style="font-size:10px;color:#1A1915;flex-shrink:0">'+s.niv+'/'+s.max+'</span>'
+       +'</div>';
     });
   }
   var mediaHtml='';
